@@ -11,7 +11,7 @@ function App() {
 
   const handlePredict = async (stockName: string, startDate: string) => {
     setIsLoading(true)
-    
+
     try {
       const response = await fetch('http://localhost:8000/predict', {
         method: 'POST',
@@ -27,7 +27,7 @@ function App() {
       }
 
       const rawData = await response.json();
-      
+
       // Transform API response into ChartDataPoint[]
       const chartData = rawData.dates.map((date: string, index: number) => ({
         date: date,
@@ -41,6 +41,7 @@ function App() {
         stockName: stockName,
         startDate: startDate,
         endDate: endDate,
+        currency: rawData.currency || 'USD',
         chartData: chartData
       };
 
@@ -57,7 +58,7 @@ function App() {
   return (
     <div className="min-h-screen bg-background font-sans">
       <Header />
-      
+
       <main className="container mx-auto px-4 py-8 md:py-12">
         <div className="mx-auto max-w-5xl">
           {/* Hero Section */}
@@ -85,9 +86,13 @@ function App() {
         </div>
       </main>
 
-      <footer className="border-t border-border py-6 text-center">
+      <footer className="border-t border-border py-6 text">
         <p className="text-sm text-muted-foreground">
-          Deep Learning Stock Prediction Project
+          @2026 Stock Price Prediction Project. All rights reserved.
+          <br />
+          Educational purpose only.
+          <br />
+          Developed by: Ayush J. Maradia
         </p>
       </footer>
     </div>

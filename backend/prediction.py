@@ -74,9 +74,17 @@ def train_and_predict(ticker: str, start_date: str):
     
     dates = df.index[-len(y_test_inv):].strftime('%Y-%m-%d').tolist()
 
-    
+    # Get currency for proper formatting in frontend
+    currency = "USD" # Default
+    try:
+        ticker_info = yf.Ticker(ticker)
+        currency = ticker_info.info.get("currency", "USD")
+    except:
+        pass
+
     return {
         "dates": dates,
         "actual": y_test_inv.flatten().tolist(),
-        "predicted": y_test_pred_inv.flatten().tolist()
+        "predicted": y_test_pred_inv.flatten().tolist(),
+        "currency": currency
     }

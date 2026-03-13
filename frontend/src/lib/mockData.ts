@@ -8,6 +8,7 @@ export interface PredictionData {
   stockName: string
   startDate: string
   endDate: string
+  currency?: string
   chartData: ChartDataPoint[]
 }
 

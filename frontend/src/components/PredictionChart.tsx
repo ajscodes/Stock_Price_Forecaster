@@ -29,8 +29,8 @@ const mainChartConfig = {
 
 const errorChartConfig = {
   error: {
-    label: 'Prediction Error',
-    color: 'hsl(var(--destructive))',
+    label: 'Error Amount',
+    color: 'var(--chart-3)',
   },
 }
 
@@ -44,6 +44,11 @@ export function PredictionChart({ data }: PredictionChartProps) {
   const rmse = Math.sqrt(
     enrichedData.reduce((acc, curr) => acc + Math.pow(curr.error, 2), 0) / enrichedData.length
   )
+
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: data.currency || 'USD',
+  })
 
   return (
     <div className="space-y-6">
@@ -83,7 +88,7 @@ export function PredictionChart({ data }: PredictionChartProps) {
                 axisLine={false}
                 tickMargin={8}
                 className="text-xs"
-                tickFormatter={(value) => `₹${value}`}
+                tickFormatter={(value) => formatter.format(value)}
                 domain={['auto', 'auto']}
               />
               <Tooltip
@@ -99,7 +104,7 @@ export function PredictionChart({ data }: PredictionChartProps) {
                     }}
                     formatter={(value, name) => {
                       const label = name === 'actual' ? 'Actual' : 'Predicted'
-                      return [`₹${Number(value).toFixed(2)}`, label]
+                      return [formatter.format(Number(value)), label]
                     }}
                   />
                 }
@@ -112,7 +117,7 @@ export function PredictionChart({ data }: PredictionChartProps) {
               <Line
                 type="monotone"
                 dataKey="actual"
-                stroke="var(--chart-1)"
+                stroke="var(--color-actual)"
                 strokeWidth={2}
                 dot={false}
                 activeDot={{ r: 6, strokeWidth: 2 }}
@@ -120,7 +125,7 @@ export function PredictionChart({ data }: PredictionChartProps) {
               <Line
                 type="monotone"
                 dataKey="predicted"
-                stroke="var(--chart-2)"
+                stroke="var(--color-predicted)"
                 strokeWidth={2}
                 strokeDasharray="5 5"
                 dot={false}
@@ -135,7 +140,7 @@ export function PredictionChart({ data }: PredictionChartProps) {
         <CardHeader>
           <CardTitle className="text-xl">Prediction Error</CardTitle>
           <CardDescription>
-            Absolute difference between actual and predicted prices (RMSE: ₹{rmse.toFixed(2)})
+            Absolute difference between actual and predicted prices (RMSE: {formatter.format(rmse)})
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -167,7 +172,7 @@ export function PredictionChart({ data }: PredictionChartProps) {
                 axisLine={false}
                 tickMargin={8}
                 className="text-xs"
-                tickFormatter={(value) => `₹${value}`}
+                tickFormatter={(value) => formatter.format(value)}
               />
               <Tooltip
                 content={
@@ -181,16 +186,16 @@ export function PredictionChart({ data }: PredictionChartProps) {
                       })
                     }}
                     formatter={(value) => {
-                      return [`₹${Number(value).toFixed(2)}`, 'Error Amount']
+                      return [`${formatter.format(Number(value))} `, 'Error Amount']
                     }}
                   />
                 }
               />
-              <ReferenceLine 
-                y={rmse} 
-                stroke="hsl(var(--primary))" 
-                strokeDasharray="3 3" 
-                label={{ position: 'top', value: 'RMSE', fill: 'currentColor', fontSize: 12 }} 
+              <ReferenceLine
+                y={rmse}
+                stroke="var(--chart-4)"
+                strokeDasharray="3 3"
+                label={{ position: 'top', value: 'RMSE', fill: 'var(--foreground)', fontSize: 12, fontWeight: 'bold' }}
               />
               <Legend
                 verticalAlign="top"
@@ -200,7 +205,7 @@ export function PredictionChart({ data }: PredictionChartProps) {
               <Line
                 type="monotone"
                 dataKey="error"
-                stroke="hsl(var(--destructive))"
+                stroke="var(--color-error)"
                 strokeWidth={2}
                 dot={false}
                 activeDot={{ r: 6, strokeWidth: 2 }}

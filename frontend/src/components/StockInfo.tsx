@@ -15,6 +15,11 @@ export function StockInfo({ data }: StockInfoProps) {
   const predictionError = Math.abs(((latestPredicted - latestActual) / latestActual) * 100)
   
   const isPositive = actualChange >= 0
+  
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: data.currency || 'USD',
+  })
 
   return (
     <div className="grid gap-4 md:grid-cols-4">
@@ -42,7 +47,7 @@ export function StockInfo({ data }: StockInfoProps) {
           <div>
             <p className="text-sm text-muted-foreground">Current Price</p>
             <p className="text-2xl font-bold text-foreground">
-              ₹{latestActual.toFixed(2)}
+              {formatter.format(latestActual)}
             </p>
           </div>
         </CardContent>
