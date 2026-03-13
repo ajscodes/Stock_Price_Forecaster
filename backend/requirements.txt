@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+pydantic
+torch
+torchvision
+torchaudio
+yfinance
+pandas
+numpy
+scikit-learn
+matplotlib
