@@ -28,9 +28,11 @@ export function StockInfo({ data }: StockInfoProps) {
           <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
             <Activity className="h-6 w-6 text-primary" />
           </div>
-          <div>
-            <p className="text-sm text-muted-foreground">Stock Symbol</p>
-            <p className="text-2xl font-bold text-foreground">{data.stockName}</p>
+          <div className="min-w-0 flex-1">
+            <p className="text-sm text-muted-foreground whitespace-nowrap">Stock Symbol</p>
+            <p className="text-xl font-bold text-foreground truncate" title={data.stockName}>
+              {data.stockName}
+            </p>
           </div>
         </CardContent>
       </Card>
@@ -44,9 +46,9 @@ export function StockInfo({ data }: StockInfoProps) {
               <TrendingDown className="h-6 w-6 text-destructive" />
             )}
           </div>
-          <div>
-            <p className="text-sm text-muted-foreground">Current Price</p>
-            <p className="text-2xl font-bold text-foreground">
+          <div className="min-w-0 flex-1">
+            <p className="text-sm text-muted-foreground whitespace-nowrap">Current Price</p>
+            <p className="text-2xl font-bold text-foreground truncate">
               {formatter.format(latestActual)}
             </p>
           </div>
@@ -62,9 +64,9 @@ export function StockInfo({ data }: StockInfoProps) {
               <TrendingDown className="h-6 w-6 text-destructive" />
             )}
           </div>
-          <div>
-            <p className="text-sm text-muted-foreground">Price Change</p>
-            <p className={`text-2xl font-bold ${isPositive ? 'text-chart-1' : 'text-destructive'}`}>
+          <div className="min-w-0 flex-1">
+            <p className="text-sm text-muted-foreground whitespace-nowrap">Price Change</p>
+            <p className={`text-2xl font-bold truncate ${isPositive ? 'text-chart-1' : 'text-destructive'}`}>
               {isPositive ? '+' : ''}{actualChange.toFixed(2)}%
             </p>
           </div>
@@ -76,9 +78,9 @@ export function StockInfo({ data }: StockInfoProps) {
           <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-chart-2/10">
             <Target className="h-6 w-6 text-chart-2" />
           </div>
-          <div>
-            <p className="text-sm text-muted-foreground">Model Accuracy</p>
-            <p className="text-2xl font-bold text-foreground">
+          <div className="min-w-0 flex-1">
+            <p className="text-sm text-muted-foreground whitespace-nowrap">Model Accuracy</p>
+            <p className="text-2xl font-bold text-foreground truncate">
               {(100 - predictionError).toFixed(1)}%
             </p>
           </div>

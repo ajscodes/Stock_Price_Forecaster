@@ -1,12 +1,21 @@
 import { useState } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import { Header } from './components/Header'
 import { StockPredictionForm } from './components/StockPredictionForm'
 import { PredictionChart } from './components/PredictionChart'
 import { StockInfo } from './components/StockInfo'
+import { Footer } from './components/Footer'
+import { AboutModel } from './components/AboutModel'
+import { Documentation } from './components/Documentation'
+import { ScrollToTop } from './components/ScrollToTop'
+import { RecentPredictions } from './components/RecentPredictions'
+import { Disclaimer } from './components/Disclaimer'
+import { TermsOfService } from './components/TermsOfService'
 import { type PredictionData } from './lib/mockData'
 
 function App() {
   const [predictionData, setPredictionData] = useState<PredictionData | null>(null)
+  const [recentPredictions, setRecentPredictions] = useState<PredictionData[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
   const handlePredict = async (stockName: string, startDate: string) => {
@@ -46,6 +55,15 @@ function App() {
       };
 
       setPredictionData(data)
+      
+      // Add to recent predictions history (keep maximum of 4)
+      setRecentPredictions(prev => {
+        // Remove existing entry for the same stock if it exists
+        const filtered = prev.filter(p => p.stockName !== data.stockName)
+        // Add new entry to the front and keep up to 4
+        return [data, ...filtered].slice(0, 4)
+      })
+
     } catch (error: any) {
       console.error(error);
       alert(error.message);
@@ -57,44 +75,49 @@ function App() {
 
   return (
     <div className="min-h-screen bg-background font-sans">
+      <ScrollToTop />
       <Header />
 
       <main className="container mx-auto px-4 py-8 md:py-12">
         <div className="mx-auto max-w-5xl">
-          {/* Hero Section */}
-          <section className="mb-10 text-center">
-            <h1 className="mb-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl text-balance">
-              Stock Price Prediction
-            </h1>
-            <p className="mx-auto max-w-2xl text-muted-foreground text-balance">
-              Powered by deep learning models to forecast stock prices. Enter a stock symbol and date range to see predicted vs actual prices.
-            </p>
-          </section>
+          <Routes>
+            <Route path="/" element={
+              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                {/* Hero Section */}
+                <section className="mb-10 text-center">
+                  <h1 className="mb-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl text-balance">
+                    Stock Price Prediction
+                  </h1>
+                  <p className="mx-auto max-w-2xl text-muted-foreground text-balance">
+                    Powered by deep learning models to forecast stock prices. Enter a stock symbol and date range to see predicted vs actual prices.
+                  </p>
+                </section>
 
-          {/* Form Section */}
-          <section className="mb-10">
-            <StockPredictionForm onPredict={handlePredict} isLoading={isLoading} />
-          </section>
+                {/* Form Section */}
+                <section className="mb-10">
+                  <StockPredictionForm onPredict={handlePredict} isLoading={isLoading} />
+                </section>
 
-          {/* Results Section */}
-          {predictionData && (
-            <section className="space-y-6">
-              <StockInfo data={predictionData} />
-              <PredictionChart data={predictionData} />
-            </section>
-          )}
+                {predictionData && (
+                  <section className="space-y-6">
+                    <StockInfo data={predictionData} />
+                    <PredictionChart data={predictionData} />
+                  </section>
+                )}
+
+                {/* Recent Predictions Section */}
+                <RecentPredictions predictions={recentPredictions} />
+              </div>
+            } />
+            <Route path="/aboutmodel" element={<AboutModel />} />
+            <Route path="/documentation" element={<Documentation />} />
+            <Route path="/disclaimer" element={<Disclaimer />} />
+            <Route path="/terms" element={<TermsOfService />} />
+          </Routes>
         </div>
       </main>
 
-      <footer className="border-t border-border py-6 text">
-        <p className="text-sm text-muted-foreground">
-          @2026 Stock Price Prediction Project. All rights reserved.
-          <br />
-          Educational purpose only.
-          <br />
-          Developed by: Ayush J. Maradia
-        </p>
-      </footer>
+      <Footer />
     </div>
   )
 }

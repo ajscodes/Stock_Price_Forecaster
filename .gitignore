@@ -13,3 +13,7 @@ frontend/.next/
 # IDEs
 .vscode/
 .idea/
+
+# Windows
+backend_run.bat
+frontend_run.bat
