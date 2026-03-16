@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, TrendingUp, Twitter, ExternalLink } from 'lucide-react'
+import { Github, Linkedin, Mail, TrendingUp, Twitter, ExternalLink, MessageSquare } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 export function Footer() {
@@ -54,7 +54,7 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8 items-start align-top">
+          <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-8 items-start align-top">
             <div className="flex flex-col items-start justify-start">
               <h3 className="mb-6 text-sm font-bold uppercase tracking-widest text-foreground/90 leading-none">Quick Links</h3>
               <ul className="space-y-4">
@@ -128,6 +128,26 @@ export function Footer() {
                       <span className="absolute -bottom-1 left-0 h-px w-0 bg-primary transition-all group-hover:w-full" />
                     </span>
                   </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div className="flex flex-col items-start justify-start">
+              <h3 className="mb-6 text-sm font-bold uppercase tracking-widest text-foreground/90 leading-none">Support</h3>
+              <ul className="space-y-4">
+                <li>
+                  <a
+                    href="https://docs.google.com/forms/d/e/1FAIpQLScxOP8OMOyi5ur19B-WC9YP-74OwnPhX7oVsUrv0IlO5DkIcQ/viewform?usp=sharing&ouid=103701807376984511439"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center text-sm text-muted-foreground transition-colors hover:text-primary"
+                  >
+                    <span className="relative flex items-center gap-2">
+                      Feedback & Support
+                      <MessageSquare className="h-3.5 w-3.5" />
+                      <span className="absolute -bottom-1 left-0 h-px w-0 bg-primary transition-all group-hover:w-full" />
+                    </span>
+                  </a>
                 </li>
               </ul>
             </div>

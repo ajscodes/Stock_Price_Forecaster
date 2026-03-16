@@ -1,4 +1,4 @@
-import { TrendingUp } from 'lucide-react'
+import { TrendingUp, MessageSquare } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 
 export function Header() {
@@ -48,6 +48,15 @@ export function Header() {
           >
             Documentation
           </Link>
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLScxOP8OMOyi5ur19B-WC9YP-74OwnPhX7oVsUrv0IlO5DkIcQ/viewform?usp=sharing&ouid=103701807376984511439"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+          >
+            <MessageSquare className="h-4 w-4" />
+            Feedback
+          </a>
         </nav>
       </div>
     </header>
