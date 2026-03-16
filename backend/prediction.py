@@ -16,6 +16,8 @@ def train_and_predict(ticker: str, start_date: str):
     if df.empty:
         raise ValueError(f"No data found for ticker {ticker} with start date {start_date}")
 
+    df = df.dropna()
+
     if isinstance(df.columns, pd.MultiIndex):
         close_prices = df['Close'].values
     else:
@@ -82,9 +84,44 @@ def train_and_predict(ticker: str, start_date: str):
     except:
         pass
 
+    import datetime
+    
+    # Get the real latest date from the data
+    last_actual_date = df.index[-1]
+    
+    # Calculate the next trading day (roughly - could be improved with a calendar library)
+    # If it's Friday, next business day is Monday.
+    next_date = last_actual_date + datetime.timedelta(days=1)
+    if next_date.weekday() >= 5: # Saturday or Sunday
+        next_date += datetime.timedelta(days=(7 - next_date.weekday()))
+    
+    future_date_str = next_date.strftime('%Y-%m-%d')
+
+    # Grab the most recent 29 days of scaled data (because your model uses seq_length - 1 = 29 days as input)
+    last_29_days = scaled_data[-(seq_length - 1):] 
+    
+    # Reshape it to match the model's expected shape: [batch_size=1, seq_length=29, features=1]
+    X_future = torch.from_numpy(last_29_days).type(torch.Tensor).unsqueeze(0).to(device)
+    
+    # Pass it through the model to predict tomorrow
+    model.eval()
+    with torch.no_grad():
+        future_pred_scaled = model(X_future)
+        
+    # Inverse transform to get the real dollar amount
+    future_pred = scaler.inverse_transform(future_pred_scaled.cpu().numpy())[0][0]
+    
+    # For debugging/verification
+    print(f"Prediction generated for {ticker} at {datetime.datetime.now()}")
+    print(f"Latest data point from yfinance: {last_actual_date.strftime('%Y-%m-%d')} - {close_prices[-1]}")
+    
     return {
         "dates": dates,
         "actual": y_test_inv.flatten().tolist(),
         "predicted": y_test_pred_inv.flatten().tolist(),
-        "currency": currency
+        "currency": currency,
+        "future_date": future_date_str,
+        "future_prediction": float(future_pred),
+        "current_price": float(close_prices.flatten()[-1]),
+        "generated_at": datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     }

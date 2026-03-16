@@ -11,6 +11,7 @@ import { ScrollToTop } from './components/ScrollToTop'
 import { RecentPredictions } from './components/RecentPredictions'
 import { Disclaimer } from './components/Disclaimer'
 import { TermsOfService } from './components/TermsOfService'
+import { FuturePrediction } from './components/FuturePrediction'
 import { type PredictionData } from './lib/mockData'
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
 
   const handlePredict = async (stockName: string, startDate: string) => {
     setIsLoading(true)
+    setPredictionData(null)
 
     try {
       const response = await fetch('http://localhost:8000/predict', {
@@ -51,7 +53,10 @@ function App() {
         startDate: startDate,
         endDate: endDate,
         currency: rawData.currency || 'USD',
-        chartData: chartData
+        chartData: chartData,
+        futureDate: rawData.future_date,
+        futurePrediction: rawData.future_prediction,
+        generatedAt: rawData.generated_at
       };
 
       setPredictionData(data)
@@ -110,6 +115,7 @@ function App() {
               </div>
             } />
             <Route path="/aboutmodel" element={<AboutModel />} />
+            <Route path="/future-prediction" element={<FuturePrediction />} />
             <Route path="/documentation" element={<Documentation />} />
             <Route path="/disclaimer" element={<Disclaimer />} />
             <Route path="/terms" element={<TermsOfService />} />

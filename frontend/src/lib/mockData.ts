@@ -10,6 +10,9 @@ export interface PredictionData {
   endDate: string
   currency?: string
   chartData: ChartDataPoint[]
+  futureDate?: string
+  futurePrediction?: number
+  generatedAt?: string
 }
 
 // Seed-based random for consistent results per stock

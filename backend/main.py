@@ -31,8 +31,17 @@ class PredictionRequest(BaseModel):
 def read_root():
     return {"message": "Welcome to the Stock Price Prediction API"}
 
-@lru_cache(maxsize=128)
+import time
+_search_cache: Dict[str, tuple[float, List[Dict]]] = {}
+CACHE_TTL = 90 # 1.5 minutes
+
 def fetch_yahoo_suggestions(query: str) -> List[Dict]:
+    now = time.time()
+    if query in _search_cache:
+        timestamp, cached_data = _search_cache[query]
+        if now - timestamp < CACHE_TTL:
+            return cached_data
+
     url = "https://query2.finance.yahoo.com/v1/finance/search"
     params = {
         "q": query,
@@ -55,6 +64,8 @@ def fetch_yahoo_suggestions(query: str) -> List[Dict]:
                 'exchDisp': quote.get('exchDisp'),
                 'type': quote.get('quoteType')
             })
+            
+    _search_cache[query] = (now, suggestions)
     return suggestions
 
 @app.get("/search")

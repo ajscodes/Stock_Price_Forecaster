@@ -3,13 +3,13 @@ import { Link, useLocation } from 'react-router-dom'
 
 export function Header() {
   const location = useLocation()
-  
+
   const isActive = (path: string) => location.pathname === path
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-card/80 backdrop-blur-md">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <Link 
+        <Link
           to="/"
           className="flex items-center gap-2 transition-opacity hover:opacity-80"
         >
@@ -18,29 +18,33 @@ export function Header() {
           </div>
           <span className="text-lg font-semibold text-foreground">StockPredict AI</span>
         </Link>
-        
+
         <nav className="hidden items-center gap-6 md:flex">
-          <Link 
+          <Link
             to="/"
-            className={`text-sm font-medium transition-colors hover:text-foreground ${
-              isActive('/') ? 'text-foreground' : 'text-muted-foreground'
-            }`}
+            className={`text-sm font-medium transition-colors hover:text-foreground ${isActive('/') ? 'text-foreground' : 'text-muted-foreground'
+              }`}
           >
             Dashboard
           </Link>
-          <Link 
+          <Link
+            to="/future-prediction"
+            className={`text-sm font-medium transition-colors hover:text-foreground ${isActive('/future-prediction') ? 'text-foreground' : 'text-muted-foreground'
+              }`}
+          >
+            Next Day Prediction
+          </Link>
+          <Link
             to="/aboutmodel"
-            className={`text-sm font-medium transition-colors hover:text-foreground ${
-              isActive('/aboutmodel') ? 'text-foreground' : 'text-muted-foreground'
-            }`}
+            className={`text-sm font-medium transition-colors hover:text-foreground ${isActive('/aboutmodel') ? 'text-foreground' : 'text-muted-foreground'
+              }`}
           >
             About Model
           </Link>
-          <Link 
+          <Link
             to="/documentation"
-            className={`text-sm font-medium transition-colors hover:text-foreground ${
-              isActive('/documentation') ? 'text-foreground' : 'text-muted-foreground'
-            }`}
+            className={`text-sm font-medium transition-colors hover:text-foreground ${isActive('/documentation') ? 'text-foreground' : 'text-muted-foreground'
+              }`}
           >
             Documentation
           </Link>
