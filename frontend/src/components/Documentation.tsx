@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge'
 export function Documentation() {
   return (
     <div className="relative mx-auto max-w-5xl space-y-16 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-24 px-4 overflow-hidden">
-      {/* Background Blobs for depth */}
+
       <div className="absolute top-0 -left-20 h-96 w-96 rounded-full bg-primary/5 blur-[120px] -z-10" />
       <div className="absolute bottom-40 -right-20 h-96 w-96 rounded-full bg-blue-500/5 blur-[120px] -z-10" />
 
@@ -19,7 +19,6 @@ export function Documentation() {
       </section>
 
       <div className="grid gap-12 lg:grid-cols-3">
-        {/* Left Column - User Guide */}
         <div className="lg:col-span-2 space-y-12">
           <section>
             <div className="flex items-center gap-3 mb-6">
@@ -113,7 +112,6 @@ export function Documentation() {
           </section>
         </div>
 
-        {/* Right Column - Tech Stack & Disclaimer */}
         <div className="space-y-12">
           <section>
             <div className="flex items-center gap-3 mb-6">

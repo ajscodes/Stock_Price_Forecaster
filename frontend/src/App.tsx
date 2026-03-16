@@ -39,7 +39,6 @@ function App() {
 
       const rawData = await response.json();
 
-      // Transform API response into ChartDataPoint[]
       const chartData = rawData.dates.map((date: string, index: number) => ({
         date: date,
         actual: rawData.actual[index],
@@ -61,11 +60,8 @@ function App() {
 
       setPredictionData(data)
       
-      // Add to recent predictions history (keep maximum of 4)
       setRecentPredictions(prev => {
-        // Remove existing entry for the same stock if it exists
         const filtered = prev.filter(p => p.stockName !== data.stockName)
-        // Add new entry to the front and keep up to 4
         return [data, ...filtered].slice(0, 4)
       })
 
@@ -83,12 +79,11 @@ function App() {
       <ScrollToTop />
       <Header />
 
-      <main className="container mx-auto px-4 py-8 md:py-12">
+      <main className="container mx-auto px-4 py-8 md:py-12 relative z-10">
         <div className="mx-auto max-w-5xl">
           <Routes>
             <Route path="/" element={
               <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                {/* Hero Section */}
                 <section className="mb-10 text-center">
                   <h1 className="mb-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl text-balance">
                     Stock Price Prediction
@@ -98,7 +93,6 @@ function App() {
                   </p>
                 </section>
 
-                {/* Form Section */}
                 <section className="mb-10">
                   <StockPredictionForm onPredict={handlePredict} isLoading={isLoading} />
                 </section>
@@ -110,7 +104,6 @@ function App() {
                   </section>
                 )}
 
-                {/* Recent Predictions Section */}
                 <RecentPredictions predictions={recentPredictions} />
               </div>
             } />

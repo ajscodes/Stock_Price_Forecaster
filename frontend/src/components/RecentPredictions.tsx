@@ -35,7 +35,7 @@ export function RecentPredictions({ predictions }: RecentPredictionsProps) {
           const changeVal = ((latestActual - firstActual) / firstActual) * 100
           const trend = changeVal >= 0 ? "up" : "down"
           
-          // Latest date from the prediction
+
           const latestDateRaw = data.chartData[data.chartData.length - 1].date
           const parsedDate = new Date(latestDateRaw)
           const dateStr = parsedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })

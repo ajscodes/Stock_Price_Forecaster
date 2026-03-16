@@ -35,7 +35,7 @@ const errorChartConfig = {
 }
 
 export function PredictionChart({ data }: PredictionChartProps) {
-  // Calculate the errors and RMSE
+
   const enrichedData = data.chartData.map(d => ({
     ...d,
     error: Math.abs(d.actual - d.predicted),

@@ -139,26 +139,26 @@ export function AboutModel() {
                 </div>
 
                 <div className="h-32 w-full flex items-end gap-1 pt-4 relative">
-                  {/* Brighter background graph */}
+
                   <svg className="absolute inset-x-0 bottom-0 w-full h-24 opacity-60 px-2" viewBox="0 0 400 100" preserveAspectRatio="none">
-                    {/* Brighter horizontal grid lines */}
+
                     <line x1="0" y1="20" x2="400" y2="20" stroke="currentColor" strokeWidth="0.5" className="text-zinc-700" />
                     <line x1="0" y1="50" x2="400" y2="50" stroke="currentColor" strokeWidth="0.5" className="text-zinc-700" />
                     <line x1="0" y1="80" x2="400" y2="80" stroke="currentColor" strokeWidth="0.5" className="text-zinc-700" />
 
-                    {/* More saturated curve lines */}
+
                     <path d="M0,90 Q50,40 100,65 T200,30 T300,50 T400,20" fill="none" stroke="currentColor" strokeWidth="2" className="text-rose-400" />
                     <path d="M0,95 Q70,50 140,75 T280,45 T400,35" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-blue-400" />
                   </svg>
 
-                  {/* High-Contrast Axis Indicators */}
+
                   <div className="absolute left-0 top-8 flex flex-col gap-8 text-[7px] font-mono text-zinc-400 pl-1 uppercase font-bold">
                     <span>1.0</span>
                     <span>0.5</span>
                     <span>0.0</span>
                   </div>
 
-                  {/* Vivid decreasing loss curve */}
+
                   {[95, 82, 70, 62, 55, 48, 42, 38, 32, 28, 25, 22, 20, 18, 16, 15, 14].map((h, i) => (
                     <div key={i} className="flex-1 flex flex-col justify-end gap-[2px] relative z-10">
                       <div

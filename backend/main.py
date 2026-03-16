@@ -6,23 +6,18 @@ import requests
 from functools import lru_cache
 from typing import List, Dict
 
-
-# Import the logic we wrote in prediction.py
 from prediction import train_and_predict
 
 app = FastAPI(title="Stock Price Prediction API")
 
-# Configure CORS so the React frontend can communicate with this backend
-# In development, React typically runs on port 5173 (Vite) or 3000 (Create React App)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # For production, change to the exact URL of your frontend
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# This defines what the React frontend will send us
 class PredictionRequest(BaseModel):
     ticker: str
     start_date: str
@@ -33,7 +28,7 @@ def read_root():
 
 import time
 _search_cache: Dict[str, tuple[float, List[Dict]]] = {}
-CACHE_TTL = 90 # 1.5 minutes
+CACHE_TTL = 90
 
 def fetch_yahoo_suggestions(query: str) -> List[Dict]:
     now = time.time()
@@ -82,7 +77,7 @@ def search_stocks(q: str):
             first_word = q.split(" ")[0]
             suggestions = fetch_yahoo_suggestions(first_word)
             
-        return list(suggestions)[:5] # Limit to top 5 for the UI
+        return list(suggestions)[:5]
     except Exception as e:
         import traceback
         print(f"Search error: {e}")
@@ -92,16 +87,12 @@ def search_stocks(q: str):
 @app.post("/predict")
 def predict_stock(request: PredictionRequest):
     try:
-        # Call the machine learning function from prediction.py
         result = train_and_predict(ticker=request.ticker, start_date=request.start_date)
         return result
     except ValueError as ve:
-        # e.g., if there's not enough data or the ticker is invalid
         raise HTTPException(status_code=400, detail=str(ve))
     except Exception as e:
-        # Catch any other unexpected errors (like yfinance connection issues)
         raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
 
-# This allows you to run the server simply by running `python main.py`
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

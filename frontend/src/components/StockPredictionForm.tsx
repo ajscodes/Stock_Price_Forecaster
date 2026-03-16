@@ -64,22 +64,19 @@ export function StockPredictionForm({ onPredict, isLoading }: StockPredictionFor
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (stockName && startDate) {
-      // Clean up the ticker: remove spaces and uppercase for the API
       const cleanTicker = stockName.replace(/\s/g, "").toUpperCase()
       onPredict(cleanTicker, startDate)
     }
   }
 
-  // Get today's date in YYYY-MM-DD format for max date
   const today = new Date().toISOString().split('T')[0]
 
-  // Get date 5 years ago for min date
   const minDate = new Date()
   minDate.setFullYear(minDate.getFullYear() - 5)
   const minDateStr = minDate.toISOString().split('T')[0]
 
   return (
-    <Card className="mx-auto max-w-2xl border-border shadow-lg">
+    <Card className="mx-auto max-w-2xl border-border shadow-lg relative z-20">
       <CardContent className="pt-6">
         <form onSubmit={handleSubmit}>
           <FieldGroup>

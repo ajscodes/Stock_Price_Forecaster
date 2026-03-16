@@ -6,12 +6,11 @@ export function Footer() {
 
   return (
     <footer className="relative border-t border-border bg-card/30 pt-16 pb-12 overflow-hidden">
-      {/* Decorative background element */}
+
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 relative z-0">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
-          {/* Logo and Description */}
           <div className="lg:col-span-4">
             <div className="flex items-center gap-3 mb-6 group cursor-default">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary shadow-[0_0_15px_rgba(var(--primary),0.3)] transition-transform group-hover:scale-110">
@@ -56,7 +55,6 @@ export function Footer() {
           </div>
 
           <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8 items-start align-top">
-            {/* Column 1: Quick Links */}
             <div className="flex flex-col items-start justify-start">
               <h3 className="mb-6 text-sm font-bold uppercase tracking-widest text-foreground/90 leading-none">Quick Links</h3>
               <ul className="space-y-4">
@@ -90,7 +88,6 @@ export function Footer() {
               </ul>
             </div>
 
-            {/* Column 2: How it works */}
             <div className="flex flex-col items-start justify-start">
               <h3 className="mb-6 text-sm font-bold uppercase tracking-widest text-foreground/90 leading-none">How it works</h3>
               <ul className="space-y-4">
@@ -113,7 +110,6 @@ export function Footer() {
               </ul>
             </div>
 
-            {/* Column 3: Legal */}
             <div className="flex flex-col items-start justify-start">
               <h3 className="mb-6 text-sm font-bold uppercase tracking-widest text-foreground/90 leading-none">Legal</h3>
               <ul className="space-y-4">
