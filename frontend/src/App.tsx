@@ -12,7 +12,6 @@ import { RecentPredictions } from './components/RecentPredictions'
 import { Disclaimer } from './components/Disclaimer'
 import { TermsOfService } from './components/TermsOfService'
 import { FuturePrediction } from './components/FuturePrediction'
-import { FeedbackButton } from './components/FeedbackButton'
 import { type PredictionData } from './lib/mockData'
 
 function App() {
