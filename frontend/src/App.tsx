@@ -24,7 +24,7 @@ function App() {
     setPredictionData(null)
 
     try {
-      const baseUrl = import.meta.env.API_BASE_URL || 'http://localhost:8000';
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
       const response = await fetch(`${baseUrl}/predict`, {
         method: 'POST',
         headers: {
