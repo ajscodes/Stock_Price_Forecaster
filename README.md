@@ -2,8 +2,6 @@
 
 A modern, full-stack stock price prediction application powered by Deep Learning. This project uses an LSTM (Long Short-Term Memory) neural network to analyze historical stock data and forecast future price movements.
 
-![Stock Price Forecaster Preview](https://github.com/user-attachments/assets/placeholder-image.png)
-
 ## 🚀 Features
 
 - **Real-time Stock Search**: Integrated with Yahoo Finance API for instant ticker lookup.
@@ -67,8 +65,6 @@ npm run dev
 ```
 The frontend application will be running at `http://localhost:5173`.
 
-> [!TIP]
-> You can also use the provided `.bat` files in the root directory to quickly launch both services on Windows.
 
 ## 🧠 How It Works
 
@@ -87,4 +83,4 @@ This application is for **educational and research purposes only**. Financial ma
 Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
-Built with ❤️ by [Ayush](https://github.com/your-username)
+Built with ❤️ by [Ayush J. Maradia](https://github.com/your-username)
