@@ -30,7 +30,8 @@ export function StockPredictionForm({ onPredict, isLoading }: StockPredictionFor
 
       setIsSearching(true)
       try {
-        const response = await fetch(`http://localhost:8000/search?q=${stockName}`)
+        const baseUrl = import.meta.env.API_BASE_URL || 'http://localhost:8000';
+        const response = await fetch(`${baseUrl}/search?q=${stockName}`)
         if (response.ok) {
           const data = await response.json()
           setSuggestions(data)

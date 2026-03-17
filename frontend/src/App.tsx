@@ -24,7 +24,8 @@ function App() {
     setPredictionData(null)
 
     try {
-      const response = await fetch('http://localhost:8000/predict', {
+      const baseUrl = import.meta.env.API_BASE_URL || 'http://localhost:8000';
+      const response = await fetch(`${baseUrl}/predict`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
