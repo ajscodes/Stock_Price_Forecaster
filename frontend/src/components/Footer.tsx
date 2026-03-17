@@ -9,7 +9,7 @@ export function Footer() {
 
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
 
-      <div className="mx-auto max-w-5xl px-4 relative z-0">
+      <div className="container mx-auto px-4 relative z-0">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <div className="flex items-center gap-3 mb-6 group cursor-default">
