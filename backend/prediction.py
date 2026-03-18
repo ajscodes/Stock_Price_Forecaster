@@ -76,10 +76,45 @@ def train_and_predict(ticker: str, start_date: str):
     
     dates = df.index[-len(y_test_inv):].strftime('%Y-%m-%d').tolist()
 
+    # Detect currency based on ticker suffix as a fallback/manual override
     currency = "USD"
+    ticker_upper = ticker.upper()
+    
+    # Pre-defined mapping for accuracy
+    currency_mapping = {
+        '.NS': 'INR', '.BO': 'INR',  # India
+        '.L': 'GBP',                 # London
+        '.PA': 'EUR', '.DE': 'EUR',  # France, Germany
+        '.F': 'EUR', '.MI': 'EUR',   # Frankfurt, Milan
+        '.MC': 'EUR', '.AS': 'EUR',  # Madrid, Amsterdam
+        '.TO': 'CAD', '.V': 'CAD',   # Canada
+        '.HK': 'HKD',                # Hong Kong
+        '.T': 'JPY',                 # Tokyo
+        '.KS': 'KRW', '.KQ': 'KRW',  # South Korea
+        '.AX': 'AUD',                # Australia
+        '.SA': 'BRL',                # Brazil
+        '.MX': 'MXN',                # Mexico
+        '.TW': 'TWD',                # Taiwan
+        '.SS': 'CNY', '.SZ': 'CNY',  # China
+        '.SI': 'SGD',                # Singapore
+        '.BK': 'THB',                # Thailand
+        '.JK': 'IDR',                # Indonesia
+        '.KL': 'MYR',                # Malaysia
+    }
+    
+    # Check suffix
+    for suffix, curr in currency_mapping.items():
+        if ticker_upper.endswith(suffix):
+            currency = curr
+            break
+
     try:
         ticker_info = yf.Ticker(ticker)
-        currency = ticker_info.info.get("currency", "USD")
+        # Only override if yf gives us something non-empty and non-USD 
+        # (unless we already defaulted to USD, in which case we take whatever yf says)
+        yf_currency = ticker_info.info.get("currency")
+        if yf_currency:
+            currency = yf_currency
     except:
         pass
 
