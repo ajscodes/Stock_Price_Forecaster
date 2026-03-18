@@ -31,7 +31,7 @@ def train_and_predict(ticker: str, start_date: str):
     data = []
     
     if len(scaled_data) <= seq_length:
-        raise ValueError("Not enough data to create sequences. Pick an earlier start date.")
+        raise ValueError("Please select a start date at least 6 to 8 months earlier to get accurate results.")
 
     for i in range(len(scaled_data) - seq_length + 1):
         data.append(scaled_data[i : i + seq_length])
